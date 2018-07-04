@@ -40,7 +40,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder>{
     public int getItemCount() {
         return list.size();
     }
-
+    public  interface InterFaceForViewEvents {
+         void OnAction(List<DataType> list, DataType data, View v);
+    }
     class ItemViewHolder extends RecyclerView.ViewHolder{
         private TextView subject;
         private TextView describe;
@@ -56,4 +58,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder>{
             describe.setText(data.describe);
         }
     }
+
+
 }

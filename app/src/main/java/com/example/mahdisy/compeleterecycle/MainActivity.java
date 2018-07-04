@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             list.add(data);
         }
         RecyclerView recyclerView=findViewById(R.id.RecyclerView);
-        Adapter adapter=new Adapter(MainActivity.this, list, new InterFaceForViewEvents() {
+        Adapter adapter=new Adapter(MainActivity.this, list, new Adapter.InterFaceForViewEvents() {
             @Override
             public void OnAction(List<DataType> list, DataType data, View v) {
                 registerForContextMenu(v);

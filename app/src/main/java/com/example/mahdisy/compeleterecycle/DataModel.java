@@ -1,6 +1,6 @@
 package com.example.mahdisy.compeleterecycle;
 
-public class DataType {
+public class DataModel {
     public String subject;
     public String describe;
 }

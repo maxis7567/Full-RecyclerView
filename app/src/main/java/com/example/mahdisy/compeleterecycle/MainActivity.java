@@ -12,32 +12,21 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements Adapter.InterFaceForViewEvents{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final List<DataType> list=new ArrayList<>();
+        final List<DataModel> list=new ArrayList<>();
         for (int i = 0; i <100 ; i++) {
-            DataType data=new DataType();
+            DataModel data=new DataModel();
             data.subject="subject"+i;
             data.describe="Describe ....";
             list.add(data);
         }
         RecyclerView recyclerView=findViewById(R.id.RecyclerView);
-        Adapter adapter=new Adapter(MainActivity.this, list, new Adapter.InterFaceForViewEvents() {
-            @Override
-            public void OnAction(List<DataType> list, DataType data, View v) {
-                registerForContextMenu(v);
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(MainActivity.this,"Ok",Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+        Adapter adapter=new Adapter(this, list, this);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -61,5 +50,18 @@ public class MainActivity extends AppCompatActivity {
 
         }
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void OnAction(List<DataModel> list, final DataModel data, View v) {
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Ok"+data.subject,Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 }

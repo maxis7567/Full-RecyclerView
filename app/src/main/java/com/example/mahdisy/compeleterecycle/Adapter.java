@@ -13,9 +13,9 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder>{
 
     private Context context;
-    private List<DataType> list;
+    private List<DataModel> list;
     private InterFaceForViewEvents viewEvents;
-    Adapter(Context context, List<DataType> list, InterFaceForViewEvents viewEvents){
+    Adapter(Context context, List<DataModel> list, InterFaceForViewEvents viewEvents){
 
         this.context = context;
         this.list = list;
@@ -41,7 +41,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder>{
         return list.size();
     }
     public  interface InterFaceForViewEvents {
-         void OnAction(List<DataType> list, DataType data, View v);
+         void OnAction(List<DataModel> list, DataModel data, View v);
     }
     class ItemViewHolder extends RecyclerView.ViewHolder{
         private TextView subject;
@@ -53,7 +53,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ItemViewHolder>{
             describe=itemView.findViewById(R.id.itemView_describe);
             view=itemView;
         }
-        void BindItems(DataType data){
+        void BindItems(DataModel data){
             subject.setText(data.subject);
             describe.setText(data.describe);
         }

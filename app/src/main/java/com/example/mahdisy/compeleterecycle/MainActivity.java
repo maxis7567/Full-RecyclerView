@@ -1,5 +1,6 @@
 package com.example.mahdisy.compeleterecycle;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,23 +14,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity  implements Adapter.InterFaceForViewEvents{
-
+    Adapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final List<DataModel> list=new ArrayList<>();
-        for (int i = 0; i <100 ; i++) {
+        for (int i = 0; i <20 ; i++) {
             DataModel data=new DataModel();
             data.subject="subject"+i;
             data.describe="Describe ....";
             list.add(data);
         }
         RecyclerView recyclerView=findViewById(R.id.RecyclerView);
-        Adapter adapter=new Adapter(this, list, this);
+        adapter=new Adapter(this, list, this);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+
     }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -64,4 +66,19 @@ public class MainActivity extends AppCompatActivity  implements Adapter.InterFac
 
 
     }
+
+    @Override
+    public void OnLoadMore() {
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                DataModel dataModel=new DataModel();
+                dataModel.describe="new "+String.valueOf(adapter.getItemCount());
+               adapter.AddItem(dataModel);
+            }
+        }, 1);
+
+
+    }
+
 }
